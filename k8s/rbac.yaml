@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: javadns-service-account
+  namespace: default
+  labels:
+    app: javadns
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: javadns-role
+  namespace: default
+  labels:
+    app: javadns
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["services", "endpoints"]
+  verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: javadns-role-binding
+  namespace: default
+  labels:
+    app: javadns
+subjects:
+- kind: ServiceAccount
+  name: javadns-service-account
+  namespace: default
+roleRef:
+  kind: Role
+  name: javadns-role
+  apiGroup: rbac.authorization.k8s.io

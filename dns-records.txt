@@ -1,0 +1,20 @@
+# DNS Records File
+# Format: hostname address1 address2 ...
+# Lines starting with # are comments
+
+# Direct hostname mappings
+test.example.com 192.168.1.100
+app.example.com 192.168.1.101 192.168.1.102 192.168.1.103
+db.example.com 192.168.1.200
+
+# Wildcard patterns  
+*.local.com 127.0.0.1
+*.dev.example.com 192.168.1.50 192.168.1.51
+
+# Load balancing examples
+web.example.com 10.0.0.10 10.0.0.11 10.0.0.12
+api.example.com 10.0.0.20 10.0.0.21
+
+# Single IP mappings
+cache.example.com 192.168.1.201
+queue.example.com 192.168.1.202

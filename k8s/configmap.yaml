@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: javadns-config
+  namespace: default
+  labels:
+    app: javadns
+    component: config
+data:
+  application.properties: |
+    # DNS Server Configuration
+    dns.upstream-dns-server=8.8.8.8
+    dns.cache-expiration-seconds=300
+    dns.server-port=5353
+
+    # File Plugin Configuration  
+    dns.plugin.file.file-path=/config/dns-records.txt
+
+    # Spring Boot Configuration
+    server.port=8080
+    logging.level.com.example.javadns=INFO
+    logging.level.org.xbill.DNS=WARN
+    
+    # Actuator endpoints
+    management.endpoints.web.exposure.include=health,info,metrics
+    management.endpoint.health.show-details=always
+
+    # Cache Configuration
+    spring.cache.type=simple
+
+  dns-records.txt: |
+    # DNS Records File - Kubernetes Edition
+    # Format: hostname address1 address2 ...
+    
+    # Internal Kubernetes services
+    api.internal 10.96.0.1
+    db.internal 10.96.0.2
+    cache.internal 10.96.0.3
+    
+    # Load balancing examples for microservices
+    web.service.local 10.100.0.10 10.100.0.11 10.100.0.12
+    api.service.local 10.100.0.20 10.100.0.21
+    
+    # Wildcard for dev environments
+    *.dev.local 192.168.100.100
+    *.staging.local 192.168.200.100
+    
+    # External service mappings
+    external-api.company.com 203.0.113.100
+    backup.company.com 203.0.113.200

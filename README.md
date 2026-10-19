@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="Java DNS logo" width="180">
+</p>
+
 # JavaDNS Server
 
 A high-performance, extensible DNS server built with Spring Boot and dnsjava, featuring a plugin-based architecture for custom hostname resolution.
